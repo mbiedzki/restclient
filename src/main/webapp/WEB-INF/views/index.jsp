@@ -43,7 +43,6 @@
 <div id="book" class="w3-container w3-large w3-border-amber">
 
 </div>
-
 <hr>
 
 <script src="${pageContext.request.contextPath}/js/one.js"></script>
