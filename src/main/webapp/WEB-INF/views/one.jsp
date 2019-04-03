@@ -28,9 +28,10 @@
 </div>
 <hr>
 
-<div id="books" class="w3-table-all">
+<div id="books" class="w3-table-all w3-center">
 
 </div>
+
 
 
 

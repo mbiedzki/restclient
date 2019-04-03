@@ -1,38 +1,37 @@
 $(document).ready(function () {
 
-    var selectedDiv = document.getElementById("selectedBook");
-    var chosenBook = selectedDiv.innerText;
+    var chosenBook = document.getElementById("selectedBook").innerText;
 
-    $.ajax({
+    if (chosenBook !== "") {
+        $.ajax({
 
-        type: "GET",
-        url: "http://biedzki.pl/library-1.0/books/"+chosenBook,
-        contentType: "json",
+            type: "GET",
+            url: "http://biedzki.pl/library-1.0/books/" + chosenBook,
+            contentType: "json",
 
-        success: function (response) {
+            success: function (response) {
 
 
-            var c = [];
+                var c = [];
 
-            c.push("<thead><tr class='w3-amber w3-xlarge'>" + "<td>ID</td>" + "<td>Title</td>"
-                + "<td>Author</td>" + "<td>Category</td>" +"<td>Format</td> </tr></thead>");
+                c.push(" <form method='post' class='w3-container w3-border w3-border-amber'>");
+                c.push("<span class='w3-amber'>ID : </span><input type='text' readonly name='currentId' size='5' value='" +response.id + "'><br>");
+                c.push("<span class='w3-amber'>Category : </span><input type='text' required name='currentCategory' size='20' value='" +response.category + "'><br>");
+                c.push("<span class='w3-amber'>Format : </span><input type='text' required name='currentFormat' size='5' value='" +response.format + "'><br>");
+                c.push("<span class='w3-amber'>Title : </span><input type='text' required name='currentTitle' size='50' value='" +response.title + "'><br>");
+                c.push("<span class='w3-amber'>Author : </span><input type='text' required name='currentAuthor' size='50' value='" +response.author + "'><br>");
+                c.push("</form>");
 
-                c.push("<tr><td>" + response.id + "</td>");
-                c.push("<td>" + response.title + "</td>");
-                c.push("<td>" + response.author + "</td>");
-                c.push("<td>" + response.category + "</td>");
-                c.push("<td>" + response.format + "</td></tr>");
+                $('#book').html(c.join(""));
 
-            $('#books').html(c.join(""));
+            },
 
-        },
+            error: function () {
 
-        error: function () {
-
-            var div = $("#books");
-
-            div.append("Book not found : " + chosenBook);
-        }
-    })
+                var div = $("#book");
+                div.append("<p class='w3-amber w3-large'>Book with ID: " + chosenBook + " not found in the library</p>");
+            }
+        })
+    }
 
 });

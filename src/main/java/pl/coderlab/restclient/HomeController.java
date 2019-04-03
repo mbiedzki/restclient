@@ -25,7 +25,7 @@ public class HomeController {
     public String findById(@RequestParam("bookId") Long id, Model model) {
 
         model.addAttribute("selectedId", id);
-        return "one";
+        return "index";
     }
 
 }
