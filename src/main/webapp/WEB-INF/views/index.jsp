@@ -33,12 +33,13 @@
 <div class="w3-container">
     <form method="post">
         <input type="number" name="bookId" placeholder="input book ID" class=w3-xlarge>
-        <br><br>
         <button type="submit"
                 class="w3-button w3-xlarge w3-border w3-border-amber w3-round-xxlarge">Find book by ID</button>
     </form>
+    <p>You can add new book by selecting existing book by ID and editing its fields</p>
     <br>
 </div>
+
 
 <div id="book" class="w3-container w3-large w3-border-amber">
 
