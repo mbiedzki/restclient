@@ -12,7 +12,7 @@
 </head>
 <body>
 
-
+<div id="selectedBook" style="display: none">${selectedId}</div>
 <br>
 <br>
 
@@ -24,19 +24,19 @@
 <hr>
 
 <div class="w3-container">
-<a href="${pageContext.request.contextPath}/all"
-   class="w3-button w3-xlarge w3-border w3-border-amber w3-round-xxlarge">Show all books</a>
-</div>
-<hr>
-
-<div id="selectedBook" style="display: none">${selectedId}</div>
-<div class="w3-container">
     <form method="post">
-        <input type="number" name="bookId" placeholder="input book ID" class=w3-xlarge>
+
+        <a href="${pageContext.request.contextPath}/all"
+           class="w3-button w3-xlarge w3-border w3-border-amber w3-round-xxlarge">Show all books</a>
+        <button type="button" id='bookAdd'
+                class="w3-button w3-xlarge w3-border w3-border-amber w3-round-xxlarge">New book form</button>
+
+
+        <input type="number" name="bookId" style="width: 7em;" placeholder="book ID" class="w3-xlarge w3-border w3-border-amber">
         <button type="submit"
                 class="w3-button w3-xlarge w3-border w3-border-amber w3-round-xxlarge">Find book by ID</button>
+
     </form>
-    <p>You can add new book by selecting existing book by ID and editing its fields</p>
     <br>
 </div>
 
