@@ -14,8 +14,8 @@ $(document).ready(function () {
 
             var c = [];
 
-            c.push("<thead><tr class='w3-amber w3-xlarge'>" + "<td>ID</td>" + "<td>Title</td>"
-                + "<td>Author</td></tr></thead>");
+            c.push("<table><thead><tr class='w3-amber w3-xlarge'>" + "<td>ID</td>" + "<td>Title</td>"
+                + "<td>Author</td></tr></thead><tbody>");
 
 
             $.each(response, function(i, item) {
@@ -23,6 +23,8 @@ $(document).ready(function () {
                 c.push("<td>" + item.title + "</td>");
                 c.push("<td>" + item.author + "</td></tr>");
             });
+
+            c.push("</tbody></table>")
 
             $('#books').html(c.join(""));
 

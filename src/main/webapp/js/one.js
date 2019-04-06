@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+    /*Get book *****************************************************************************************/
     var chosenBook = document.getElementById("selectedBook").innerText;
 
     document.getElementById("bookAdd").onclick = function () {
@@ -22,11 +23,11 @@ $(document).ready(function () {
                 var c = [];
 
                 c.push(" <form method='post' class='w3-container w3-border w3-border-amber'>");
-                c.push("<br><span class='w3-amber'>Title : </span><input type='text' required id='currentTitle' size='50' value='" + response.title + "'><br>");
-                c.push("<span class='w3-amber'>Author : </span><input type='text' required id='currentAuthor' size='50' value='" + response.author + "'><br>");
-                c.push("<span class='w3-amber'>ID : </span><input type='text' readonly id='currentId' size='5' value='" + response.id + "'><br>");
-                c.push("<span class='w3-amber'>Category : </span><input type='text' required id='currentCategory' size='20' value='" + response.category + "'><br>");
-                c.push("<span class='w3-amber'>Format : </span><input type='text' required id='currentFormat' size='5' value='" + response.format + "'><br><br>");
+                c.push("<br><span style='width: 8em; display: inline-block' class='w3-amber'>Title : </span><input type='text' required id='currentTitle' size='50' value='" + response.title + "'><br>");
+                c.push("<span style='width: 8em; display: inline-block' class='w3-amber'>Author : </span><input type='text' required id='currentAuthor' size='50' value='" + response.author + "'><br>");
+                c.push("<span style='width: 8em; display: inline-block' class='w3-amber'>ID : </span><input type='text' readonly id='currentId' size='50' value='" + response.id + "'><br>");
+                c.push("<span style='width: 8em; display: inline-block' class='w3-amber'>Category : </span><input type='text' required id='currentCategory' size='50' value='" + response.category + "'><br>");
+                c.push("<span style='width: 8em; display: inline-block' class='w3-amber'>Format : </span><input type='text' required id='currentFormat' size='50' value='" + response.format + "'><br><br>");
                 c.push("</form><br>");
                 c.push("<button type='button' id='bookUpdate' class='w3-button w3-xlarge w3-border w3-border-amber w3-round-xxlarge'>Update selected book</button>");
                 c.push("<button type='button' id='bookDelete' class='w3-button w3-xlarge w3-border w3-border-amber w3-round-xxlarge'>Delete selected book</button>");
@@ -49,28 +50,6 @@ $(document).ready(function () {
                 div.append("<p class='w3-amber w3-large'>Book with ID: " + chosenBook + " not found in the library</p>");
             }
         })
-
-    }
-
-
-    function bookForm() {
-
-        var c = [];
-
-        c.push(" <form method='post' class='w3-container w3-border w3-border-amber'>");
-        c.push("<br><span class='w3-amber'>Title : </span><input type='text' required id='currentTitle' size='50' ><br>");
-        c.push("<span class='w3-amber'>Author : </span><input type='text' required id='currentAuthor' size='50' ><br>");
-        c.push("<span class='w3-amber'>Category : </span><input type='text' required id='currentCategory' size='20' ><br>");
-        c.push("<span class='w3-amber'>Format : </span><input type='text' required id='currentFormat' size='5' ><br><br>");
-        c.push("<button type='submit' id='add' class='w3-button w3-xlarge w3-border w3-border-amber w3-round-xxlarge'>Add book</button><br><br>");
-        c.push("</form>");
-
-
-        $('#book').html(c.join(""));
-
-        document.getElementById("add").onclick = function () {
-            addBook();
-        };
 
     }
 
@@ -122,12 +101,12 @@ $(document).ready(function () {
             contentType:'application/json; charset=utf-8',
 
 
-            success: function () {
+            success: function (responseText) {
                 $('#book').html("<p class='w3-amber w3-large'>Book with ID: " + chosenBook + " deleted</p>");
             },
 
-            error: function () {
-                $('#book').html("<p class='w3-red w3-large'>Book with ID: " + chosenBook + " was not deleted - server error!</p>");
+            error: function (responseText) {
+                $('#book').html("<p class='w3-red w3-large'>Book with ID: " + chosenBook + " was not deleted - server error!<br><br>RESPONSE : " + JSON.stringify(responseText) + "</p>");
             }
 
         });
@@ -135,37 +114,69 @@ $(document).ready(function () {
 
     }
 
+    /*Generate new book form *****************************************************************************************/
+
+    function bookForm() {
+
+        var c = [];
+
+        c.push(" <form class='w3-container w3-border w3-border-amber'>");
+        c.push("<br><span style='width: 8em; display: inline-block' class='w3-amber'>Title : </span><input type='text' required id='currentTitle' size='50' ><br>");
+        c.push("<span style='width: 8em; display: inline-block' class='w3-amber'>Author : </span><input type='text' required id='currentAuthor' size='50' ><br>");
+        c.push("<span style='width: 8em; display: inline-block' class='w3-amber'>Category : </span><input type='text' required id='currentCategory' size='50' ><br>");
+        c.push("<span style='width: 8em; display: inline-block' class='w3-amber'>Format : </span><input type='text' required id='currentFormat' size='50' ><br><br>");
+        c.push("<button type='button' id='add' class='w3-button w3-xlarge w3-border w3-border-amber w3-round-xxlarge'>Add book</button><br><br>");
+        c.push("</form>");
+        c.push("<br><p id='message' class='w3-amber w3-large'></p>");
+
+
+        $('#book').html(c.join(""));
+
+        document.getElementById("add").onclick = function () {
+            addBook();
+        };
+
+    }
+
     /*Add book *****************************************************************************************/
 
     function addBook() {
 
-        var bookToBeAdded = {
-           /* 'id': null,*/
-            'title': document.getElementById("currentTitle").value,
-            'author': document.getElementById("currentAuthor").value,
-            'category': document.getElementById("currentCategory").value,
-            'format': document.getElementById("currentFormat").value
-        };
+        if (document.getElementById("currentTitle").value !== "" &&
+            document.getElementById("currentAuthor").value !== "" &&
+            document.getElementById("currentCategory").value !== "" &&
+            document.getElementById("currentFormat").value !== "") {
+
+            var bookToBeAdded = {
+                'id': "0",
+                'title': document.getElementById("currentTitle").value,
+                'author': document.getElementById("currentAuthor").value,
+                'category': document.getElementById("currentCategory").value,
+                'format': document.getElementById("currentFormat").value
+            };
 
 
-        $.ajax({
-            url: "http://localhost:8090/books/",
-            /*url: "http://biedzki.pl/library-1.0/books/",*/
-            cache: false,
-            type: 'POST',
-            contentType:'application/json; charset=utf-8',
-            data: JSON.stringify(bookToBeAdded),
+            $.ajax({
+                url: "http://localhost:8090/books/",
+                /*url: "http://biedzki.pl/library-1.0/books/",*/
+                cache: false,
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(bookToBeAdded),
 
-            success: function () {
-                $('#book').html("<p class='w3-amber w3-large'>Book added</p>");
-            },
+                success: function (responseText) {
+                    $('#book').html("<p class='w3-amber w3-large'>Book added<br><br>RESPONSE : " + JSON.stringify(responseText) + "</p>");
+                },
 
-            error: function () {
-                $('#book').html("<p class='w3-red w3-large'>Book was not added - server error!</p>");
-            }
+                error: function (responseText) {
+                    $('#book').html("<p class='w3-red w3-large'>Book was not added - server error!<br><br>RESPONSE : " + JSON.stringify(responseText) + "</p>");
+                }
 
-        });
+            });
+        } else {
+            $('#message').html("Please fill in all fields !");
 
+        }
 
     }
 

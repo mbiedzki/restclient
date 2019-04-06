@@ -29,6 +29,12 @@
 
 </div>
 
+<hr>
+<div class="w3-container">
+    <a href="${pageContext.request.contextPath}/"
+       class="w3-button w3-xlarge w3-border w3-border-amber w3-round-xxlarge">Return</a>
+</div>
+<br>
 
 
 </body>
