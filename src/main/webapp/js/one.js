@@ -1,5 +1,8 @@
 $(document).ready(function () {
 
+    var serverAddress = "http://biedzki.pl/library-1.0/books/";
+    //var serverAddress = "http://localhost:8090/library-1.0/books/"
+
     /*Get book *****************************************************************************************/
     var chosenBook = document.getElementById("selectedBook").innerText;
 
@@ -12,8 +15,7 @@ $(document).ready(function () {
 
             type: "GET",
             cache: false,
-          url: "http://localhost:8090/books/" + chosenBook,
-            /*url: "http://biedzki.pl/library-1.0/books/" + chosenBook,*/
+            url: serverAddress + chosenBook,
             contentType: "application/json; charset=utf-8",
 
 
@@ -67,22 +69,21 @@ $(document).ready(function () {
 
 
         $.ajax({
-            url: "http://localhost:8090/books/" + chosenBook,
-            /*url: "http://biedzki.pl/library-1.0/books/" + chosenBook,*/
+            url: serverAddress + chosenBook,
             cache: false,
             type: 'PUT',
-            contentType:'application/json; charset=utf-8',
+            contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(bookToBeUpdated),
-            dataType:'json',
+            dataType: 'json',
 
 
             success: function (responseText) {
-                $('#book').html("<p class='w3-amber w3-large'>Book with ID: " + chosenBook + " updated<br><br>RESPONSE : " + JSON.stringify(responseText) +"</p>");
+                $('#book').html("<p class='w3-amber w3-large'>Book with ID: " + chosenBook + " updated<br><br>RESPONSE : " + JSON.stringify(responseText) + "</p>");
             },
 
             error: function (responseText) {
                 $('#book').html("<p class='w3-red w3-large'>Book with ID: " + chosenBook + " was not updated - server error!"
-                +"<br><br>JSON SENT : " +JSON.stringify(bookToBeUpdated) +"<br><br>RESPONSE : " + JSON.stringify(responseText) +"</p>");
+                    + "<br><br>JSON SENT : " + JSON.stringify(bookToBeUpdated) + "<br><br>RESPONSE : " + JSON.stringify(responseText) + "</p>");
             }
 
         });
@@ -94,11 +95,10 @@ $(document).ready(function () {
     function deleteBook() {
 
         $.ajax({
-            url: "http://localhost:8090/books/" + chosenBook,
-            /*url: "http://biedzki.pl/library-1.0/books/" + chosenBook,*/
+            url: serverAddress + chosenBook,
             cache: false,
             type: 'DELETE',
-            contentType:'application/json; charset=utf-8',
+            contentType: 'application/json; charset=utf-8',
 
 
             success: function (responseText) {
@@ -157,8 +157,7 @@ $(document).ready(function () {
 
 
             $.ajax({
-                url: "http://localhost:8090/books/",
-                /*url: "http://biedzki.pl/library-1.0/books/",*/
+                url: serverAddress,
                 cache: false,
                 type: 'POST',
                 contentType: 'application/json; charset=utf-8',
