@@ -1,7 +1,10 @@
 $(document).ready(function () {
 
-    var serverAddress = "http://biedzki.pl/library-1.0/books/";
     //var serverAddress = "http://localhost:8090/library-1.0/books/"
+    var serverAddress = "http://biedzki.pl/library-1.0/books/";
+    var serverInfo = "http://biedzki.pl/library-1.0/actuator/info";
+    var serverHealth = "http://biedzki.pl/library-1.0/actuator/health";
+
 
     /*Get book *****************************************************************************************/
     var chosenBook = document.getElementById("selectedBook").innerText;
@@ -9,6 +12,9 @@ $(document).ready(function () {
     document.getElementById("bookAdd").onclick = function () {
         bookForm();
     };
+
+    actuatorInfo();
+    actuatorHealth();
 
     if (chosenBook !== "") {
         $.ajax({
@@ -87,7 +93,6 @@ $(document).ready(function () {
             }
 
         });
-
 
     }
 
@@ -176,6 +181,54 @@ $(document).ready(function () {
             $('#message').html("Please fill in all fields !");
 
         }
+
+    }
+    /*Sever Actuator info *****************************************************************************************/
+
+    function actuatorInfo() {
+
+        $.ajax({
+            url: serverInfo,
+            cache: false,
+            type: 'GET',
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (responseText) {
+                $('#info').html("<p class='w3-light-grey w3-large'>Server info from actuator end point: <br/>"
+                    + responseText.app.name + ",   "
+                    + responseText.app.description + ",   "
+                    + "version : " + responseText.app.version
+                    + "</p>");
+            },
+
+            error: function (responseText) {
+                $('#info').html("<p class='w3-red w3-large'>Server error !<br><br>" +
+                    "RESPONSE : " + JSON.stringify(responseText) + "</p>");
+            }
+
+        });
+
+    }
+
+    function actuatorHealth() {
+
+        $.ajax({
+            url: serverHealth,
+            cache: false,
+            type: 'GET',
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (responseText) {
+                $('#health').html("<p class='w3-light-grey w3-large'>Server status from actuator end point: "
+                    + responseText.status + "</p>");
+            },
+
+            error: function (responseText) {
+                $('#health').html("<p class='w3-red w3-large'>Server error !<br><br>" +
+                    "RESPONSE : " + JSON.stringify(responseText) + "</p>");
+            }
+
+        });
 
     }
 

@@ -18,14 +18,17 @@
 
 <div class="w3-container w3-amber" align="center">
     <h1>Simple client for testing my REST book library server</h1>
-    <p>http://biedzki.pl/library-1.0/books/</p>
-    <p>Java, Spring Boot, Java Sript, Jason, Ajax</p>
 </div>
 <hr>
 
+<div id="health" class="w3-container w3-large">
+</div>
+<div id="info" class="w3-container w3-large">
+</div>
+<hr/>
+
 <div class="w3-container">
     <form method="post">
-
         <a href="${pageContext.request.contextPath}/all"
            class="w3-button w3-xlarge w3-border w3-border-amber w3-round-xxlarge">Show all books</a>
         <hr>
