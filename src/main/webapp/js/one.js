@@ -183,6 +183,7 @@ $(document).ready(function () {
         }
 
     }
+
     /*Sever Actuator info *****************************************************************************************/
 
     function actuatorInfo() {
