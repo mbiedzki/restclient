@@ -1,9 +1,9 @@
 $(document).ready(function () {
 
     //var serverAddress = "http://localhost:8090/library-1.0/books/"
-    var serverAddress = "http://biedzki.pl/library-1.0/books/";
-    var serverInfo = "http://biedzki.pl/library-1.0/actuator/info";
-    var serverHealth = "http://biedzki.pl/library-1.0/actuator/health";
+    var serverAddress = "https://biedzki.pl/library-1.0/books/";
+    var serverInfo = "https://biedzki.pl/library-1.0/actuator/info";
+    var serverHealth = "https://biedzki.pl/library-1.0/actuator/health";
 
 
     /*Get book *****************************************************************************************/

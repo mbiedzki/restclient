@@ -3,7 +3,7 @@ $(document).ready(function () {
 
         type: "GET",
         cache: false,
-        url: "http://biedzki.pl/library-1.0/books/",
+        url: "https://biedzki.pl/library-1.0/books/",
         /*url: "http://localhost:8090/books/",*/
         contentType: "application/json; charset=utf-8",
 
